@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>Tag: rev | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/tags/rev/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
@@ -152,182 +152,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-revunity" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/04/29/revunity/" class="archive-article-date">
+  	<time datetime="2022-04-29T14:49:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/29/revunity/">revunity</a>
+      <a class="archive-article-title" href="/2022/04/29/revunity/">revunity</a>
     </h1>
   
 
-        
-        <a href="/2022/04/29/revunity/" class="archive-article-date">
-  	<time datetime="2022-04-29T14:49:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Bugku-baby-unity3d学习"><a href="#Bugku-baby-unity3d学习" class="headerlink" title="Bugku baby unity3d学习"></a>Bugku baby unity3d学习</h2><h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><ol>
-<li>Unity 游戏有两种打包方式 mono 与 il2cpp</li>
-<li>在 mono 模式下，游戏 C# 代码被编译为 IL(中间代码) 并生成 dll 文件，然后 dll 被打包进最后的游戏包文件。由于 IL 非常容易被 ILSpy &#x2F; .NET Reflector 等专业反编译软件分析逆向，所以在无保护情况下，游戏的安全性极差。</li>
-<li>在 il2cpp 模式下，虽然游戏逻辑是以 Native 代码运行, 但依然要实现 C# 某些语言特性（如GC), il2cpp 将所有的 C# 中的类名&#x2F;属性名&#x2F;字符串等信息记录在 global-metadata.dat 文件。il2cpp 启动时会从这个文件读取所需要的类名&#x2F;属性名等信息。</li>
-<li>使用 <strong>IL2cppDumper</strong> 可以解析 <strong>global-metadata.dat</strong> 文件，并将文件里的类名等字符串信息对应到 Native 代码中去</li>
-<li><code>Unity</code>使用<code>Mono</code>方式打出来的<code>apk</code>，我们可以直接从包内拿到<code>Assembly-CSharp.dll</code>，如果开发者没有对<code>Assembly-CSharp.dll</code>进行加密处理，那么我们可以很方便地使用<code>ILSpy.exe</code>对其进行反编译。</li>
-</ol>
-<h3 id="题目介绍-（baby-unity3d）"><a href="#题目介绍-（baby-unity3d）" class="headerlink" title="题目介绍 （baby unity3d）"></a>题目介绍 （baby unity3d）</h3><ol>
-<li><p>在bugku上遇到了一个unity apk需要我们来逆向，但是直接用IDA打开so文件，完全摸不着边际</p>
-</li>
-<li><p>查阅网络上的资料，了解到这个游戏使用了il2cpp的打包方式，需要分析libil2cpp.so和global-metadata.dat文件来获取native中的类名&#x2F;函数名&#x2F;变量名等等。</p>
-</li>
-<li><p>刚好这一方面之前从来没有了解过，正好通过这道题来学习一下如何逆向unity的apk</p>
-</li>
-</ol>
-<h3 id="工具环境"><a href="#工具环境" class="headerlink" title="工具环境"></a>工具环境</h3><ol>
-<li>工欲善其事必先利其器，先搞好工具，下个 Il2cppDumper</li>
-</ol>
-<p>安装参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/linxinfa/article/details/116572369">https://blog.csdn.net/linxinfa/article/details/116572369</a></p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427164106462.png" alt="image-20220427164106462"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427164141958.png" alt="image-20220427164141958"></p>
-<ol start="2">
-<li>从apk中提取文件</li>
-</ol>
-<p>解压apk，从\crackme\assets\bin\Data\Managed\Metadata\中提取global-metadata.dat文件；</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427165128875.png" alt="image-20220427165128875"></p>
-<p>从\crackme\lib\armeabi-v7a文件中提取libil2cpp.so文件；</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427165111248.png" alt="image-20220427165111248"></p>
-<ol start="3">
-<li>回到<code>Il2CppDumper.exe</code>所在的目录，创建<code>input</code>目录和<code>output</code>目录。</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427165317242.png" alt="image-20220427165317242"></p>
-<p>将上述两个文件放到input文件夹中，并编写il2cpp_decompilation.bat文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">..\Il2CppDumper.exe libil2cpp.so global-metadata.dat ..\output</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427165613842.png" alt="image-20220427165613842"></p>
-<blockquote>
-<p>运行bat文件，发现出错了，metadata可能被加密了</p>
-</blockquote>
-<ol start="4">
-<li>查看global-metadata.dat文件</li>
-</ol>
-<ul>
-<li>使用二进制文本查看器打开global-metadata.dat文件</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427165822363.png" alt="image-20220427165822363"></p>
-<ul>
-<li>发现文件开头并不是AF 1B B1 FA，说明该文件应该是修改或加密过</li>
-</ul>
-<h3 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h3><ul>
-<li>想要解密<code>global-metadata.dat</code>我们有两种思路，一种是dump解密结果，另一种是分析加密算法。对于第一种思路，这里有个frida脚本</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">frida_Memory</span>(<span class="params">pattern</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span> (<span class="params"></span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;头部标识:&quot;</span> + pattern);</span><br><span class="line">    <span class="keyword">var</span> addrArray = <span class="title class_">Process</span>.<span class="title function_">enumerateRanges</span>(<span class="string">&quot;r--&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; addrArray.<span class="property">length</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> addr = addrArray[i];</span><br><span class="line">        <span class="title class_">Memory</span>.<span class="title function_">scan</span>(addr.<span class="property">base</span>, addr.<span class="property">size</span>, pattern,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">onMatch</span>: <span class="keyword">function</span> (<span class="params">address, size</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;搜索到 &#x27;</span> + pattern + <span class="string">&quot; 地址是:&quot;</span> + address.<span class="title function_">toString</span>());</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">hexdump</span>(address,</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="attr">offset</span>: <span class="number">0</span>,</span><br><span class="line">                        <span class="attr">length</span>: <span class="number">64</span>,</span><br><span class="line">                        <span class="attr">header</span>: <span class="literal">true</span>,</span><br><span class="line">                        <span class="attr">ansi</span>: <span class="literal">true</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    ));</span><br><span class="line">                <span class="comment">//0x108，0x10C如果不行，换0x100，0x104</span></span><br><span class="line">                <span class="keyword">var</span> <span class="title class_">DefinitionsOffset</span> = <span class="built_in">parseInt</span>(address, <span class="number">16</span>) + <span class="number">0x108</span>;</span><br><span class="line">                <span class="keyword">var</span> <span class="title class_">DefinitionsOffset</span>_size = <span class="title class_">Memory</span>.<span class="title function_">readInt</span>(<span class="title function_">ptr</span>(<span class="title class_">DefinitionsOffset</span>));</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> <span class="title class_">DefinitionsCount</span> = <span class="built_in">parseInt</span>(address, <span class="number">16</span>) + <span class="number">0x10C</span>;</span><br><span class="line">                <span class="keyword">var</span> <span class="title class_">DefinitionsCount</span>_size = <span class="title class_">Memory</span>.<span class="title function_">readInt</span>(<span class="title function_">ptr</span>(<span class="title class_">DefinitionsCount</span>));</span><br><span class="line"></span><br><span class="line">                <span class="comment">//根据两个偏移得出global-metadata大小</span></span><br><span class="line">                <span class="keyword">var</span> global_metadata_size = <span class="title class_">DefinitionsOffset</span>_size + <span class="title class_">DefinitionsCount</span>_size</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;大小：&quot;</span>, global_metadata_size);</span><br><span class="line">                <span class="keyword">var</span> file = <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;/data/data/&quot;</span> + <span class="title function_">get_self_process_name</span>() + <span class="string">&quot;/global-metadata.dat&quot;</span>, <span class="string">&quot;wb&quot;</span>);</span><br><span class="line">                file.<span class="title function_">write</span>(<span class="title class_">Memory</span>.<span class="title function_">readByteArray</span>(address, global_metadata_size));</span><br><span class="line">                file.<span class="title function_">flush</span>();</span><br><span class="line">                file.<span class="title function_">close</span>();</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;导出完毕...&#x27;</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">onComplete</span>: <span class="keyword">function</span> (<span class="params"></span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//console.log(&quot;搜索完毕&quot;)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">setImmediate</span>(<span class="title function_">frida_Memory</span>(<span class="string">&quot;AF 1B B1 FA&quot;</span>)); <span class="comment">//global-metadata.dat头部特征</span></span><br></pre></td></tr></table></figure>
-
-<p>大概流程就是通过magic来定位到文件在内存中的起始地址，然后通过解析文件头来计算出文件的大小，最后进行dump。</p>
-<p>该脚本的适用条件是<code>global-metadata.dat</code>在解密后必须要有正常的magic即<code>AF 1B B1 FA</code>来定位，同时文件头信息要正确否则无法计算文件大小。</p>
-<p>这个脚本有一定的参考价值，然而对于这题起不到作用，脚本执行后没有找到起始地址，看来即使解密后，内存中也没有<code>AF 1B B1 FA</code>存在。所以这种通用的dump方式应该是不行了，只能找到<code>global-metadata.dat</code>的加载函数，待其解密完成后再进行dump，所以我们需要对<code>global-metadata.dat</code>的加载流程进行分析。</p>
-<h4 id="global-metadata-dat加载流程"><a href="#global-metadata-dat加载流程" class="headerlink" title="global-metadata.dat加载流程"></a><code>global-metadata.dat</code>加载流程</h4><p>考验英文的时候到了，要先学习了解一下如何跟踪分析global-metadata.dat:<a target="_blank" rel="noopener" href="https://katyscode.wordpress.com/2021/02/23/il2cpp-finding-obfuscated-global-metadata/">https://katyscode.wordpress.com/2021/02/23/il2cpp-finding-obfuscated-global-metadata/</a></p>
-<p>简要概括下，在<code>libil2cpp.so</code>里面有个<code>il2cpp_init</code>函数是加载函数调用链中的第一个函数，整个调用链是这样的</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">il2cpp_init</span><br><span class="line">  -&gt; il2cpp::vm::Runtime::Init</span><br><span class="line">    -&gt; il2cpp::vm::MetadataCache::Initialize</span><br><span class="line">      -&gt; il2cpp::vm::MetadataLoader::LoadMetadataFile</span><br></pre></td></tr></table></figure>
-
-<p>对比IDA中的函数</p>
-<ul>
-<li>il2cpp_init</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427210617395.png" alt="image-20220427210617395"></p>
-<ul>
-<li>il2cpp::vm::Runtime::Init</li>
-</ul>
-<p>sub_4C4770</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427210637275.png" alt="image-20220427210637275"></p>
-<ul>
-<li>il2cpp::vm::MetadataCache::Initialize （通过查看特殊的字符发现的，因为“global-metadata.dat”被加密了)</li>
-</ul>
-<p>sub_4B5564</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427210839581.png" alt="image-20220427210839581"></p>
-<p>解密“global-metadata.dat”函数</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427210901754.png" alt="image-20220427210901754"></p>
-<p>运行一下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427210940132.png" alt="image-20220427210940132"></p>
-<blockquote>
-<p>确实是“global-metadata.dat”</p>
-</blockquote>
-<p>可以看到与“global-metadata.dat”（v0)密切相关的函数是sub_513060，而后面v0就被free掉了，那么</p>
-<p> dword_6959CC就应当对于global-metadata.dat的数据，故而要看sub_513060的返回值</p>
-<p>sub_513060 (return v3)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427211232124.png" alt="image-20220427211232124"></p>
-<p>根据调用关系，解密dat的函数为sub_512FDC</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">char</span> *__fastcall <span class="title">sub_512FDC</span><span class="params">(<span class="type">int</span> a1, <span class="type">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">char</span> *result; <span class="comment">// r0</span></span><br><span class="line">  <span class="type">size_t</span> v5; <span class="comment">// r2</span></span><br><span class="line"></span><br><span class="line">  result = (<span class="type">char</span> *)<span class="built_in">malloc</span>(size);</span><br><span class="line">  <span class="keyword">if</span> ( size )</span><br><span class="line">  &#123;</span><br><span class="line">    v5 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      *(_DWORD *)&amp;result[v5 &amp; <span class="number">0xFFFFFFFC</span>] = *(_DWORD *)(a1 + (v5 &amp; <span class="number">0xFFFFFFFC</span>)) ^ dword_5DCF6C[(v5 + v5 / <span class="number">0x84</span>) % <span class="number">0x84</span>];</span><br><span class="line">      v5 += <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ( v5 &lt; size );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>解密脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> struct</span><br><span class="line">key=[<span class="number">0xf83da249</span>,<span class="number">0x15d12772</span>,<span class="number">0x40c50697</span>,<span class="number">0x984e2b6b</span>,<span class="number">0x14ec5ff8</span>,<span class="number">0xb2e24927</span>,<span class="number">0x3b8f77ae</span>,<span class="number">0x472474cd</span>,<span class="number">0x5b0ce524</span>,<span class="number">0xa17e1a31</span>,<span class="number">0x6c60852c</span>,<span class="number">0xd86ad267</span>,<span class="number">0x832612b7</span>,<span class="number">0x1ca03645</span>,<span class="number">0x5515abc8</span>,<span class="number">0xc5feff52</span>,<span class="number">0xffffac00</span>,<span class="number">0xfe95cb6</span>,<span class="number">0x79cf43dd</span>,<span class="number">0xaa48a3fb</span>,<span class="number">0xe1d71788</span>,<span class="number">0x97663d3a</span>,<span class="number">0xf5cffea7</span>,<span class="number">0xee617632</span>,<span class="number">0x4b11a7ee</span>,<span class="number">0x40ef0b5</span>,<span class="number">0x606fc00</span>,<span class="number">0xc1530fae</span>,<span class="number">0x7a827441</span>,<span class="number">0xfce91d44</span>,<span class="number">0x8c4cc1b1</span>,<span class="number">0x7294c28d</span>,<span class="number">0x8d976162</span>,<span class="number">0x8315435a</span>,<span class="number">0x3917a408</span>,<span class="number">0xaf7f1327</span>,<span class="number">0xd4bfaed7</span>,<span class="number">0x80d0abfc</span>,<span class="number">0x63923dc3</span>,<span class="number">0xb0e6b35a</span>,<span class="number">0xb815088f</span>,<span class="number">0x9bacf123</span>,<span class="number">0xe32411c3</span>,<span class="number">0xa026100b</span>,<span class="number">0xbcf2ff58</span>,<span class="number">0x641c5cfc</span>,<span class="number">0xc4a2d7dc</span>,<span class="number">0x99e05dca</span>,<span class="number">0x9dc699f7</span>,<span class="number">0xb76a8621</span>,<span class="number">0x8e40e03c</span>,<span class="number">0x28f3c2d4</span>,<span class="number">0x40f91223</span>,<span class="number">0x67a952e0</span>,<span class="number">0x505f3621</span>,<span class="number">0xbaf13d33</span>,<span class="number">0xa75b61cc</span>,<span class="number">0xab6aef54</span>,<span class="number">0xc4dfb60d</span>,<span class="number">0xd29d873a</span>,<span class="number">0x57a77146</span>,<span class="number">0x393f86b8</span>,<span class="number">0x2a734a54</span>,<span class="number">0x31a56af6</span>,<span class="number">0xc5d9160</span>,<span class="number">0xaf83a19a</span>,<span class="number">0x7fc9b41f</span>,<span class="number">0xd079ef47</span>,<span class="number">0xe3295281</span>,<span class="number">0x5602e3e5</span>,<span class="number">0xab915e69</span>,<span class="number">0x225a1992</span>,<span class="number">0xa387f6b2</span>,<span class="number">0x7e981613</span>,<span class="number">0xfc6cf59a</span>,<span class="number">0xd34a7378</span>,<span class="number">0xb608b7d6</span>,<span class="number">0xa9eb93d9</span>,<span class="number">0x26ddb218</span>,<span class="number">0x65f33f5f</span>,<span class="number">0xf9314442</span>,<span class="number">0x5d5c0599</span>,<span class="number">0xea72e774</span>,<span class="number">0x1605a502</span>,<span class="number">0xec6cbc9f</span>,<span class="number">0x7f8a1bd1</span>,<span class="number">0x4dd8cf07</span>,<span class="number">0x2e6d79e0</span>,<span class="number">0x6990418f</span>,<span class="number">0xcf77bad9</span>,<span class="number">0xd4fe0147</span>,<span class="number">0xfef4a3e8</span>,<span class="number">0x85c45bde</span>,<span class="number">0xb58f8e67</span>,<span class="number">0xa63eb8d7</span>,<span class="number">0xc69bd19b</span>,<span class="number">0xda442dca</span>,<span class="number">0x3c0c1743</span>,<span class="number">0xe6f39d49</span>,<span class="number">0x33568804</span>,<span class="number">0x85eb6320</span>,<span class="number">0xda223445</span>,<span class="number">0x36c4a941</span>,<span class="number">0xa9185589</span>,<span class="number">0x71b22d67</span>,<span class="number">0xf59a2647</span>,<span class="number">0x3c8b583e</span>,<span class="number">0xd7717ded</span>,<span class="number">0xdf05699c</span>,<span class="number">0x4378367d</span>,<span class="number">0x1c459339</span>,<span class="number">0x85133b7f</span>,<span class="number">0x49800ce2</span>,<span class="number">0x3666ca0d</span>,<span class="number">0xaf7ab504</span>,<span class="number">0x4ff5b8f1</span>,<span class="number">0xc23772e3</span>,<span class="number">0x3544f31e</span>,<span class="number">0xf673a57</span>,<span class="number">0xf40600e1</span>,<span class="number">0x7e967417</span>,<span class="number">0x15a26203</span>,<span class="number">0x5f2e34ce</span>,<span class="number">0x70c7921a</span>,<span class="number">0xd1c190df</span>,<span class="number">0x5bb5da6b</span>,<span class="number">0x60979c75</span>,<span class="number">0x4ea758a4</span>,<span class="number">0x78fe359</span>,<span class="number">0x1664639c</span>,<span class="number">0xae14e73b</span>,<span class="number">0x2070ff03</span>]</span><br><span class="line"></span><br><span class="line">f=<span class="built_in">open</span>(<span class="string">&quot;global-metadata.dat&quot;</span>,<span class="string">&quot;rb&quot;</span>)</span><br><span class="line">a=f.read()</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;decrypt.dat&quot;</span>,<span class="string">&quot;wb+&quot;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    i=<span class="number">0</span></span><br><span class="line">    length=<span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">while</span>(i&lt;length):</span><br><span class="line">        num = struct.unpack(<span class="string">&quot;&lt;I&quot;</span>, a[i:i + <span class="number">4</span>])[<span class="number">0</span>]   <span class="comment"># &lt;:小端法    I:unsigned int</span></span><br><span class="line">        num = num ^ key[(i + i // <span class="number">0x84</span>) % <span class="number">0x84</span>]</span><br><span class="line">        d = struct.pack(<span class="string">&#x27;I&#x27;</span>, num)</span><br><span class="line">        fp.write(d)</span><br><span class="line">        i = i + <span class="number">4</span>   </span><br></pre></td></tr></table></figure>
-
-<p>解密完成后发现还是不能用Il2cppDumper，将解密后的文件放到010editor里发现魔数不对，改成<code>AF 1B B1 FA</code>就行了，原来他把魔数校验的那一步给去掉了，所以可以改魔数，这样就可以防止用前面提到的通用frida脚本来dump了。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427214423143.png" alt="image-20220427214423143"></p>
-<blockquote>
-<p>感动，迈出了一大步，获得了output内容</p>
-</blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427214502610.png" alt="image-20220427214502610"></p>
-<h4 id="dump-cs"><a href="#dump-cs" class="headerlink" title="dump.cs"></a>dump.cs</h4><p>:这个文件会把<code>C#</code>的<code>dll</code>代码的类、方法、字段列出来 </p>
-<p>在其中，搜索checkFlag函数</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427214707195.png" alt="image-20220427214707195"></p>
-<h4 id="il2cpp-h"><a href="#il2cpp-h" class="headerlink" title="il2cpp.h"></a>il2cpp.h</h4><p>生成的<code>cpp</code>的头文件，从头文件里我们也可以看到相关的数据结构</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427214829918.png" alt="image-20220427214829918"></p>
-<h4 id="script-json"><a href="#script-json" class="headerlink" title="script.json"></a>script.json</h4><p>显示类的方法信息</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427214925787.png" alt="image-20220427214925787"></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">   <span class="attr">&quot;Address&quot;</span><span class="punctuation">:</span> <span class="number">5343780</span><span class="punctuation">,</span></span><br><span class="line">   <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Check$$CheckFlag&quot;</span><span class="punctuation">,</span></span><br><span class="line">   <span class="attr">&quot;Signature&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bool Check__CheckFlag (Check_o* __this, System_String_o* input, const MethodInfo* method);&quot;</span><span class="punctuation">,</span></span><br><span class="line">   <span class="attr">&quot;TypeSignature&quot;</span><span class="punctuation">:</span> <span class="string">&quot;iiii&quot;</span></span><br><span class="line"> <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="寻找check函数"><a href="#寻找check函数" class="headerlink" title="寻找check函数"></a>寻找check函数</h4><p>上一步知道了checkflag函数地址为0x518a24，在IDA中跳到该地址</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427215417344.png" alt="image-20220427215417344"></p>
-<p>利用ida.py还原script.json中的数据</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427221404308.png" alt="image-20220427221404308"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> __fastcall <span class="title">Check__CheckFlag</span><span class="params">(<span class="type">int</span> a1, <span class="type">int</span> a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> v3; <span class="comment">// r0</span></span><br><span class="line">  <span class="type">int</span> v4; <span class="comment">// r4</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( !byte_69C825 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">sub_4B82BC</span>(<span class="number">1279</span>);</span><br><span class="line">    byte_69C825 = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  v3 = Check_TypeInfo;</span><br><span class="line">  <span class="keyword">if</span> ( (*(_BYTE *)(Check_TypeInfo + <span class="number">178</span>) &amp; <span class="number">1</span>) != <span class="number">0</span> &amp;&amp; !*(_DWORD *)(Check_TypeInfo + <span class="number">96</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">il2cpp_runtime_class_init_0</span>(Check_TypeInfo);</span><br><span class="line">    v3 = Check_TypeInfo;</span><br><span class="line">  &#125;</span><br><span class="line">  v4 = <span class="built_in">Check__AESEncrypt</span>(</span><br><span class="line">         *(_DWORD *)(v3 + <span class="number">80</span>),</span><br><span class="line">         a2,</span><br><span class="line">         *(_DWORD *)(*(_DWORD *)(v3 + <span class="number">80</span>) + <span class="number">4000</span>),</span><br><span class="line">         *(_DWORD *)(*(_DWORD *)(v3 + <span class="number">80</span>) + <span class="number">2364</span>));</span><br><span class="line">  <span class="keyword">if</span> ( (*(_BYTE *)(string_TypeInfo + <span class="number">178</span>) &amp; <span class="number">1</span>) != <span class="number">0</span> &amp;&amp; !*(_DWORD *)(string_TypeInfo + <span class="number">96</span>) )</span><br><span class="line">    <span class="built_in">il2cpp_runtime_class_init_0</span>(string_TypeInfo);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">System_String__op_Equality</span>(<span class="number">0</span>, v4, StringLiteral_2814);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>o(╥﹏╥)o，终于可以看了</p>
-</blockquote>
-<p>愉快地取出关键字符</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220427221631795.png" alt="image-20220427221631795"></p>
-<blockquote>
-<p>StringLiteral_2814:	w0ZyUZAHhn16&#x2F;MRWie63lK+PuVpZObu&#x2F;NpQ&#x2F;E&#x2F;ucplc&#x3D;</p>
-</blockquote>
-<p>IV和key暂时获取不到，需要用frida来hook出来</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> soAdrr = <span class="title class_">Module</span>.<span class="title function_">findBaseAddress</span>(<span class="string">&quot;libil2cpp.so&quot;</span>);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">var</span> ptrAESEncrypt = soAdrr.<span class="title function_">add</span>(<span class="number">0x518b54</span>);</span><br><span class="line"></span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(ptrAESEncrypt,&#123;</span><br><span class="line">        <span class="attr">onEnter</span>: <span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&quot;enter ptrAESEncrypt args[0]-&gt; &quot;</span> + args[<span class="number">0</span>]));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&quot;enter ptrAESEncrypt args[1] text-&gt;\n&quot;</span> + <span class="title function_">hexdump</span>(args[<span class="number">1</span>])));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&quot;enter ptrAESEncrypt args[2]-&gt; password\n&quot;</span> + <span class="title function_">hexdump</span>(args[<span class="number">2</span>],&#123;</span><br><span class="line">                <span class="attr">offset</span>: <span class="number">12</span>,</span><br><span class="line">                <span class="attr">length</span>: <span class="number">12</span>+<span class="number">16</span> * <span class="number">2</span></span><br><span class="line">            &#125;)));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&quot;enter ptrAESEncrypt args[3]-&gt; iv\n&quot;</span> + <span class="title function_">hexdump</span>(args[<span class="number">3</span>],&#123;</span><br><span class="line">                <span class="attr">offset</span>: <span class="number">12</span>,</span><br><span class="line">                <span class="attr">length</span>: <span class="number">12</span>+<span class="number">16</span> * <span class="number">2</span></span><br><span class="line">            &#125;)));</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">onLeave</span>: <span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="frida-hook"><a href="#frida-hook" class="headerlink" title="frida hook"></a>frida hook</h4><p>复习一下frida知识：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/fa422d3b7148">https://www.jianshu.com/p/fa422d3b7148</a></p>
-<p>血泪经验:frida windows版本一定要和sever版本相同，麻了，折腾一天了总算成功了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb forward tcp:27043 tcp:27043</span><br><span class="line">adb forward tcp:27042 tcp:27042</span><br><span class="line">frida-ps -U</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220428190842977.png" alt="image-20220428190842977"></p>
-<p>frida脚本</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> soAdrr = <span class="title class_">Module</span>.<span class="title function_">findBaseAddress</span>(<span class="string">&quot;libil2cpp.so&quot;</span>);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">var</span> ptrAESEncrypt = soAdrr.<span class="title function_">add</span>(<span class="number">0x518b54</span>);</span><br><span class="line"></span><br><span class="line">    <span class="title class_">Interceptor</span>.<span class="title function_">attach</span>(ptrAESEncrypt,&#123;</span><br><span class="line">        <span class="attr">onEnter</span>: <span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&quot;enter ptrAESEncrypt args[0]-&gt; &quot;</span> + args[<span class="number">0</span>]));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&quot;enter ptrAESEncrypt args[1] text-&gt;\n&quot;</span> + <span class="title function_">hexdump</span>(args[<span class="number">1</span>])));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&quot;enter ptrAESEncrypt args[2]-&gt; password\n&quot;</span> + <span class="title function_">hexdump</span>(args[<span class="number">2</span>],&#123;</span><br><span class="line">                <span class="attr">offset</span>: <span class="number">12</span>,</span><br><span class="line">                <span class="attr">length</span>: <span class="number">12</span>+<span class="number">16</span> * <span class="number">2</span></span><br><span class="line">            &#125;)));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="string">&quot;enter ptrAESEncrypt args[3]-&gt; iv\n&quot;</span> + <span class="title function_">hexdump</span>(args[<span class="number">3</span>],&#123;</span><br><span class="line">                <span class="attr">offset</span>: <span class="number">12</span>,</span><br><span class="line">                <span class="attr">length</span>: <span class="number">12</span>+<span class="number">16</span> * <span class="number">2</span></span><br><span class="line">            &#125;)));</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">onLeave</span>: <span class="keyword">function</span>(<span class="params">args</span>)&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>hook这里折腾了一天，模拟器是真的不行！！！！</p>
-<p>最后用jr的真机实现的，哭了—</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220428190810897.png" alt="image-20220428190810897"></p>
-<blockquote>
-<p>pawd: <em>91c775fa0f6a1cba</em></p>
-<p>iv:<em>58f3a445939aeb79</em></p>
-</blockquote>
-<p>在线解密一下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220428192444555.png" alt="image-20220428192444555"></p>
-<p>不容易，获得flag:N1CTF{h4ppy_W1TH_1l2cpp}</p>
-<p>补个解密的脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment"># Encryption</span></span><br><span class="line">key=<span class="string">b&quot;91c775fa0f6a1cba&quot;</span></span><br><span class="line">iv=<span class="string">b&quot;58f3a445939aeb79&quot;</span></span><br><span class="line"></span><br><span class="line">encrypt_data=<span class="string">&quot;w0ZyUZAHhn16/MRWie63lK+PuVpZObu/NpQ/E/ucplc=&quot;</span></span><br><span class="line">cipher_text=base64.b64decode(encrypt_data)</span><br><span class="line"><span class="comment"># Decryption</span></span><br><span class="line">decryption_suite = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">plain_text = decryption_suite.decrypt(cipher_text)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(plain_text)</span><br><span class="line"><span class="comment"># N1CTF&#123;h4ppy_W1TH_1l2cpp&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39268483/article/details/115833605">https://blog.csdn.net/qq_39268483/article/details/115833605</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.ashenone66.cn/2022/04/22/il2cpp-ni-xiang-global-metadata-jie-mi/">https://www.ashenone66.cn/2022/04/22/il2cpp-ni-xiang-global-metadata-jie-mi/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -347,116 +199,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/29/revunity/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/29/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/29/hello-world/" class="archive-article-date">
-  	<time datetime="2022-04-29T12:54:07.005Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/29/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
 
 
           </div>
@@ -478,10 +233,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
