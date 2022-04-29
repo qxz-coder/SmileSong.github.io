@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220428190810897.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220428192444555.png">
 <meta property="article:published_time" content="2022-04-29T14:49:02.000Z">
-<meta property="article:modified_time" content="2022-04-29T15:05:48.721Z">
+<meta property="article:modified_time" content="2022-04-29T15:08:48.157Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="rev">
 <meta property="article:tag" content="unity">
@@ -209,14 +209,14 @@
 <li>使用 <strong>IL2cppDumper</strong> 可以解析 <strong>global-metadata.dat</strong> 文件，并将文件里的类名等字符串信息对应到 Native 代码中去</li>
 <li><code>Unity</code>使用<code>Mono</code>方式打出来的<code>apk</code>，我们可以直接从包内拿到<code>Assembly-CSharp.dll</code>，如果开发者没有对<code>Assembly-CSharp.dll</code>进行加密处理，那么我们可以很方便地使用<code>ILSpy.exe</code>对其进行反编译。</li>
 </ol>
-<h3 id="题目介绍-（baby-unity3d）"><a href="#题目介绍-（baby-unity3d）" class="headerlink" title="题目介绍 （baby unity3d）"></a>题目介绍 （baby unity3d）</h3><ol>
+<h3 id="题目介绍-（baby-unity3d）"><a href="#题目介绍-（baby-unity3d）" class="headerlink" title="题目介绍 （baby unity3d）"></a>题目介绍 （baby unity3d）</h3><ul>
 <li><p>在bugku上遇到了一个unity apk需要我们来逆向，但是直接用IDA打开so文件，完全摸不着边际</p>
 </li>
 <li><p>查阅网络上的资料，了解到这个游戏使用了il2cpp的打包方式，需要分析libil2cpp.so和global-metadata.dat文件来获取native中的类名&#x2F;函数名&#x2F;变量名等等。</p>
 </li>
-<li><p>刚好这一方面之前从来没有了解过，正好通过这道题来学习一下如何逆向unity的apk</p>
+<li><p>这一方面之前从来没有了解过，正好通过这道题来学习一下如何逆向unity的apk</p>
 </li>
-</ol>
+</ul>
 <h3 id="工具环境"><a href="#工具环境" class="headerlink" title="工具环境"></a>工具环境</h3><ol>
 <li>工欲善其事必先利其器，先搞好工具，下个 Il2cppDumper</li>
 </ol>
