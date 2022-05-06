@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://i.imgur.com/m9PbQxE.png">
 <meta property="og:image" content="https://i.imgur.com/rRt1NCA.png">
 <meta property="article:published_time" content="2022-05-05T14:56:37.000Z">
-<meta property="article:modified_time" content="2022-05-05T16:01:07.219Z">
+<meta property="article:modified_time" content="2022-05-06T01:51:18.539Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="rev">
 <meta property="article:tag" content="ctf">
@@ -193,7 +193,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="angstromctf2022-rev"><a href="#angstromctf2022-rev" class="headerlink" title="angstromctf2022_rev"></a>angstromctf2022_rev</h2><h3 id="uninspired"><a href="#uninspired" class="headerlink" title="uninspired"></a>uninspired</h3><p>一道有趣的数学题<br>检测逻辑:<br><img src="https://i.imgur.com/zlGSY6u.png"></p>
+        <p>五一期间参加的angstromctf，大多数题目还是挺有意思，挺典型的。特别是最后一道weebhunter2花了2天时间才做出来，但是感觉很值得，学到了不少东西。</p>
+<span id="more"></span>
+
+<h3 id="uninspired"><a href="#uninspired" class="headerlink" title="uninspired"></a>uninspired</h3><p>一道有趣的数学题<br>检测逻辑:<br><img src="https://i.imgur.com/zlGSY6u.png"></p>
 <p>输入十个0-9的整数array[0-9]，需要满足：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array[i]=sumj(array[j]=i)</span><br><span class="line"><span class="comment"># 比如array[0]=9,表示 array中有9个的数值为0，而array[9]&gt;=1,因为arr</span></span><br></pre></td></tr></table></figure>
 <p>从0的个数开始从大到小枚举就行，最终得到如下的输入：<br> 6210001000满足上述条件</p>

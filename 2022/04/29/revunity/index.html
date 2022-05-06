@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220428190810897.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220428192444555.png">
 <meta property="article:published_time" content="2022-04-29T14:49:02.000Z">
-<meta property="article:modified_time" content="2022-04-29T15:08:48.157Z">
+<meta property="article:modified_time" content="2022-05-06T01:52:05.241Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="rev">
 <meta property="article:tag" content="unity">
@@ -202,7 +202,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Bugku-baby-unity3d学习"><a href="#Bugku-baby-unity3d学习" class="headerlink" title="Bugku baby unity3d学习"></a>Bugku baby unity3d学习</h2><h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><ol>
+        <h2 id="Bugku-baby-unity3d学习"><a href="#Bugku-baby-unity3d学习" class="headerlink" title="Bugku baby unity3d学习"></a>Bugku baby unity3d学习</h2><p>bugku上面的一道unity逆向题，花了一两天学习一下unity 的逆向</p>
+<span id="more"></span>
+
+<h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><ol>
 <li>Unity 游戏有两种打包方式 mono 与 il2cpp</li>
 <li>在 mono 模式下，游戏 C# 代码被编译为 IL(中间代码) 并生成 dll 文件，然后 dll 被打包进最后的游戏包文件。由于 IL 非常容易被 ILSpy &#x2F; .NET Reflector 等专业反编译软件分析逆向，所以在无保护情况下，游戏的安全性极差。</li>
 <li>在 il2cpp 模式下，虽然游戏逻辑是以 Native 代码运行, 但依然要实现 C# 某些语言特性（如GC), il2cpp 将所有的 C# 中的类名&#x2F;属性名&#x2F;字符串等信息记录在 global-metadata.dat 文件。il2cpp 启动时会从这个文件读取所需要的类名&#x2F;属性名等信息。</li>
