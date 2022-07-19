@@ -499,6 +499,9 @@ uninspired一道有趣的数学题检测逻辑:
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/qxz-coder/qxz-coder.github.io/libs/prism/prism.min.css">
+        
 
         
 
@@ -1003,6 +1006,9 @@ uninspired一道有趣的数学题检测逻辑:
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/qxz-coder/qxz-coder.github.io/libs/codeBlock/codeBlockFuction.js"></script>
 
 
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/qxz-coder/qxz-coder.github.io/libs/prism/prism.min.js"></script>
+
 
 <!-- 代码语言 -->
 
@@ -1360,6 +1366,15 @@ $(function () {
     
 
     
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/qxz-coder/qxz-coder.github.io/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
 
     <!-- 雪花特效 -->
     
@@ -1387,8 +1402,6 @@ $(function () {
     })();
 </script>
 
-    
-    <script src="https://cdn.jsdelivr.net/gh/qxz-coder/qxz-coder.github.io/libs/others/clicklove.js" async="async"></script>
     
     
     <script async src="https://cdn.jsdelivr.net/gh/qxz-coder/qxz-coder.github.io/libs/others/busuanzi.pure.mini.js"></script>
