@@ -6,15 +6,34 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>python_bytecode | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="n1book上面的easy_python,涉及到bytecode混淆，借此机会学习一些python bytecode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python_bytecode">
+<meta property="og:url" content="http://example.com/2022/07/19/python-bytecode/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="n1book上面的easy_python,涉及到bytecode混淆，借此机会学习一些python bytecode">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719110634665.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719112146220.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719130618404.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719132158369.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719131609836.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719131801203.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719131908874.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719132034271.png">
+<meta property="article:published_time" content="2022-07-19T02:59:37.000Z">
+<meta property="article:modified_time" content="2022-07-19T05:29:17.813Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="rev">
+<meta property="article:tag" content="ctf">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="bytecode">
+<meta property="article:tag" content="obfuscate">
+<meta property="article:tag" content="n1book">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719110634665.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,36 +169,140 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-python-bytecode" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/07/19/python-bytecode/" class="archive-article-date">
-  	<time datetime="2022-07-19T02:59:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/07/19/python-bytecode/">python_bytecode</a>
+    <h1 class="article-title" itemprop="name">
+      python_bytecode
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/07/19/python-bytecode/" class="archive-article-date">
+  	<time datetime="2022-07-19T02:59:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天汇报完论文，这两天要准备考试，抓住休息的空档，解决一下之前遗留的题目。</p>
+<span id="more"></span>
+
+<h3 id="题目介绍"><a href="#题目介绍" class="headerlink" title="题目介绍"></a>题目介绍</h3><p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719110634665.png" alt="image-20220719110634665"></p>
+<ol>
+<li><p>这道题是n1book上的题目，之前刷buuctf的时候尝试了一下，发现easy_python并不easy :tired_face:</p>
+</li>
+<li><p>之前对python字节码这块完全不了解，只会使用一些网站和工具尝试反编译</p>
+</li>
+<li><p>看了官方的wp，才知道原来python bytecode也可以混淆</p>
+</li>
+</ol>
+<h3 id="初步尝试"><a href="#初步尝试" class="headerlink" title="初步尝试"></a>初步尝试</h3><p>题目提供的是一个pyc文件，首先尝试使用marshal和dis获取bytecode</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dis,marshal</span><br><span class="line">ifile=<span class="built_in">open</span>(<span class="string">&#x27;easy_python.pyc&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line">header=ifile.read(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">code=marshal.load(ifile)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print code.co_names</span></span><br><span class="line"></span><br><span class="line">dis.dis(code)</span><br></pre></td></tr></table></figure>
+
+<p>题目中提示了python环境，这里必须使用python2.7来运行</p>
+<p>第三行的read header的操作是必要的，否则marshal会出错 （咱也不清楚为啥，模仿其他人的操作</p>
+<p>运行结果:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719112146220.png" alt="image-20220719112146220"></p>
+<p>emmm,在这里卡了很久，然后看了一下官方提供的</p>
+<p>(密码:rt7o）大致意思是需要对pyc 字节码解混淆之后才能够dis</p>
+<h3 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h3><p>这里我先了解了一下字节码解混淆的相关知识</p>
+<p>python字节码在处理过程大致如下:</p>
+<p>首先所有的指令可以分为两类，不需要参数和需要参数的，Python字节码在设计的时候故意把没有参数的指令分配在了对应编号的低位，高位都是有参数的，以<code>Include/opcode.h</code>中的<code>HAVE_ARGUMENT</code>分界。他们的在二进制级别上的组织是这样的：</p>
+<ul>
+<li><code>[指令]</code> 不需要参数的指令只占用一个字节</li>
+<li><code>[指令] [参数低字节] [参数高字节]</code> 需要参数的指令占用三个字节，一个字节指令，两个字节参数</li>
+</ul>
+<p>例子如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a,b</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> a+b</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.__code__.co_code</span><br><span class="line"><span class="string">&#x27;|x00x00|x01x00x17S&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> dis</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dis.dis(add.__code__.co_code)</span><br><span class="line">          <span class="number">0</span> LOAD_FAST           <span class="number">0</span> (<span class="number">0</span>)</span><br><span class="line">          <span class="number">3</span> LOAD_FAST           <span class="number">1</span> (<span class="number">1</span>)</span><br><span class="line">          <span class="number">6</span> BINARY_ADD</span><br><span class="line">          <span class="number">7</span> RETURN_VALUE</span><br></pre></td></tr></table></figure>
+
+
+
+<p>|x00x00 表示成16进制: 7c 00 00 </p>
+<p>7c对应的是指令的索引，当索引大于dis.HAVE_ARGUMENT的时候，指令是有参数的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>dis.opname[<span class="built_in">ord</span>(<span class="string">&#x27;|&#x27;</span>)]</span><br><span class="line"><span class="string">&#x27;LOAD_FAST&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br></pre></td></tr></table></figure>
+
+<p>而0x7c对应的指令是LOAD_FAST，参数&#x3D;0*256+0</p>
+<p>所以|x00x00解释成指令 LOAD_FAST           0 (0)</p>
+<p>但是如果遇到junk code的时候，可能会由于解析的时候数组越界，导致dis失败，比如下面的代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">ord</span>,code.co_code[:<span class="number">9</span>]))</span><br><span class="line">[<span class="number">113</span>, <span class="number">158</span>, <span class="number">2</span>, <span class="number">136</span>, <span class="number">104</span>, <span class="number">110</span>, <span class="number">126</span>, <span class="number">58</span>, <span class="number">140</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dis.opname[<span class="number">113</span>]</span><br><span class="line"><span class="string">&#x27;JUMP_ABSOLUTE&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">2</span>*<span class="number">256</span>+<span class="number">158</span></span><br><span class="line"><span class="number">670</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dis.opname[<span class="number">136</span>]</span><br><span class="line"><span class="string">&#x27;LOAD_DEREF&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">110</span>*<span class="number">256</span>+<span class="number">104</span></span><br><span class="line"><span class="number">28264</span></span><br></pre></td></tr></table></figure>
+
+<p>应当被解析成:</p>
+<p> JUMP_ABSOLUTE 670</p>
+<p> LOAD_DEREF 28264</p>
+<p>显然第二条指令越界了，但是由于jump跳转，第二条指令实际上是不会被执行到的，也就是所谓的dead code()</p>
+<p>pyc文件作者是故意加入不影响执行的非法指令触发分析软件崩溃，阻碍对该pyc文件的分析。</p>
+<h3 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a>工具使用</h3><p>在github上面找了很久有关python bytecode反混淆的，最后发现了 </p>
+<p>使用python2.7配置相应环境，然后运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install networkx==1.11 pydotplus </span><br><span class="line">py2 main.py -i easy_python.pyc -o de_easypy.pyc</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719130618404.png" alt="image-20220719130618404"></p>
+<p>将输出的de_easypy.pyc 拖到pyc反编译网站<a target="_blank" rel="noopener" href="https://tool.lu/pyc/%E4%B8%AD">https://tool.lu/pyc/中</a></p>
+<p>得到源码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">rc4</span>:</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, public_key = <span class="literal">None</span></span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> public_key:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        self.public_key = <span class="string">&#x27;none_public_key&#x27;</span></span><br><span class="line">        key = hashlib.md5(self.public_key).hexdigest()</span><br><span class="line">        self.keya = hashlib.md5(key[<span class="number">0</span>:<span class="number">16</span>]).hexdigest()</span><br><span class="line">        self.keyb = hashlib.md5(key[<span class="number">16</span>:<span class="number">32</span>]).hexdigest()</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">encode</span>(<span class="params">self, string</span>):</span><br><span class="line">        string = hashlib.md5(string + self.keyb).hexdigest()[<span class="number">0</span>:<span class="number">16</span>] + string</span><br><span class="line">        self.result = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        self.docrypt(string)</span><br><span class="line">        <span class="keyword">return</span> base64.b64encode(self.result)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">decode</span>(<span class="params">self, string</span>):</span><br><span class="line">        string = base64.b64decode(string)</span><br><span class="line">        self.result = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        self.docrypt(string)</span><br><span class="line">        result = self.result</span><br><span class="line">        <span class="keyword">if</span> result[:<span class="number">16</span>] == hashlib.md5(result[<span class="number">16</span>:] + self.keyb).hexdigest()[<span class="number">0</span>:<span class="number">16</span>]:</span><br><span class="line">            <span class="keyword">return</span> result[<span class="number">16</span>:]</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">docrypt</span>(<span class="params">self, string</span>):</span><br><span class="line">        string_lenth = <span class="built_in">len</span>(string)</span><br><span class="line">        result = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        box = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">256</span>))</span><br><span class="line">        randkey = []</span><br><span class="line">        cryptkey = self.keya + hashlib.md5(self.keya).hexdigest()</span><br><span class="line">        key_lenth = <span class="built_in">len</span>(cryptkey)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">255</span>):</span><br><span class="line">            randkey.append(<span class="built_in">ord</span>(cryptkey[i % key_lenth]))</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">255</span>):</span><br><span class="line">            j = <span class="number">0</span></span><br><span class="line">            j = (j + box[i] + randkey[i]) % <span class="number">256</span></span><br><span class="line">            tmp = box[i]</span><br><span class="line">            box[i] = box[j]</span><br><span class="line">            box[j] = tmp</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(string_lenth):</span><br><span class="line">            a = j = <span class="number">0</span></span><br><span class="line">            a = (a + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">            j = (j + box[a]) % <span class="number">256</span></span><br><span class="line">            tmp = box[a]</span><br><span class="line">            box[a] = box[j]</span><br><span class="line">            box[j] = tmp</span><br><span class="line">            self.result += <span class="built_in">chr</span>(<span class="built_in">ord</span>(string[i]) ^ box[(box[a] + box[j]) % <span class="number">256</span>])</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    rc = rc4(<span class="string">&#x27;zBhzAVLG6XTu2w0H&#x27;</span>)</span><br><span class="line">    string = raw_input(<span class="string">&#x27;Input your flag:&#x27;</span>)</span><br><span class="line">    rlt = rc.encode(string)</span><br><span class="line">    <span class="built_in">print</span> rlt</span><br><span class="line">    <span class="keyword">if</span> rlt == <span class="string">&#x27;oxurpmahzeM2kHKblmTkWlLpb2i5jXKrBN/uf3+Xn5n0lYKMJA==&#x27;</span>:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;True!&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;False!&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>encode和decode操作是对应的，理论上将比较字符串的内容作为输入，然后调用decode函数就能获取flag，但是可能在处理过程中出现了一些差错，直接decode的得到的结果是不对的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719132158369.png" alt="image-20220719132158369"></p>
+<h3 id="最终办法"><a href="#最终办法" class="headerlink" title="最终办法"></a>最终办法</h3><p>这里需要换个思路，直接修改py源码是没办法得到正确结果的，如果能修改原始pyc文件，将encode替换成decode，然后输入oxurpmahzeM2kHKblmTkWlLpb2i5jXKrBN&#x2F;uf3+Xn5n0lYKMJA&#x3D;&#x3D; 就可以得到flag</p>
+<p>去混淆之后使用dis再次解析:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">55</span>          <span class="number">79</span> NOP</span><br><span class="line">            <span class="number">80</span> NOP</span><br><span class="line">            <span class="number">81</span> NOP</span><br><span class="line">            <span class="number">82</span> NOP</span><br><span class="line">            <span class="number">83</span> NOP</span><br><span class="line">       &gt;&gt;   <span class="number">84</span> LOAD_NAME                <span class="number">8</span> (raw_input)</span><br><span class="line">            <span class="number">87</span> LOAD_CONST               <span class="number">6</span> (<span class="string">&#x27;Input your flag:&#x27;</span>)</span><br><span class="line">            <span class="number">90</span> CALL_FUNCTION            <span class="number">1</span></span><br><span class="line">            <span class="number">93</span> STORE_NAME               <span class="number">9</span> (string)</span><br><span class="line">            <span class="number">96</span> LOAD_NAME                <span class="number">7</span> (rc)</span><br><span class="line">            <span class="number">99</span> LOAD_ATTR               <span class="number">10</span> (encode)</span><br><span class="line">           <span class="number">102</span> LOAD_NAME                <span class="number">9</span> (string)</span><br><span class="line">           <span class="number">105</span> CALL_FUNCTION            <span class="number">1</span></span><br><span class="line">           <span class="number">108</span> STORE_NAME              <span class="number">11</span> (rlt)</span><br><span class="line">           <span class="number">111</span> JUMP_FORWARD            <span class="number">79</span> (to <span class="number">193</span>)</span><br><span class="line">           <span class="number">114</span> NOP</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>encode附近的字节码</p>
+</blockquote>
+<p>使用dis命令可以获取LOAD_ATTR对应的索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">hex</span>(dis.opname.index(<span class="string">&#x27;LOAD_ATTR&#x27;</span>))</span><br><span class="line"><span class="string">&#x27;0x6a&#x27;</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>于是 LOAD_ATTR               10 (encode)对应的 十六进制为 6a 0a 00</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719131609836.png" alt="image-20220719131609836"></p>
+<p>10表示的是encode早co_name中的索引，可以通过code.co_names查看所有的co_name</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719131801203.png" alt="image-20220719131801203"></p>
+<p>修改encode最简单的办法就是直接在pyc文件中搜索encode并替换成decode(注意不要替换b64encode)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719131908874.png" alt="image-20220719131908874"></p>
+<p>然后将修改的pyc脚本运行起来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py2 easy_python.pyc</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/qxz-coder/typora/images/image-20220719132034271.png" alt="image-20220719132034271"></p>
+<blockquote>
+<p>成功获得flag: n1book{JUnk_c0D3_p7c}</p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -211,119 +334,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/07/19/python-bytecode/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/05/05/angstromctf-rev/" class="archive-article-date">
-  	<time datetime="2022-05-05T14:56:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/05/angstromctf-rev/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">angstromctf rev</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/05/05/angstromctf-rev/">angstromctf rev</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rev</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">rand</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">rust</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">flatland</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/29/revunity/" class="archive-article-date">
-  	<time datetime="2022-04-29T14:49:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/29/revunity/">revunity</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rev</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">unity</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">bugku</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -346,8 +456,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
